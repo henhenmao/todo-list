@@ -1,12 +1,8 @@
 
-import Task from "./tasks.js";
+import Task from "./Tasks.js";
 
-function createTask() {
-    const taskTitle = document.getElementById("new-title").value;
-    const taskDescription = document.getElementById("new-description").value;
-    const taskDue = document.getElementById("new-due").value;
-
-    const newTask = new Task(taskTitle, taskDescription, taskDue);
+function createTask(title, description, due) {
+    const newTask = new Task(title, description, due);
     return newTask;
 };
 
@@ -44,8 +40,6 @@ function createTaskDiv(task) {
     return taskDiv
 }
 
-function addTaskToProject(taskDiv, projectDiv) {
-    projectDiv.append(taskDiv);
-}
 
-export {createTask, createTaskDiv, addTaskToProject};
+
+export {createTask, createTaskDiv};

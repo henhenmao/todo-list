@@ -1,5 +1,5 @@
 
-export default class {
+export default class Tasks {
     constructor(title, description, dueDate) {
         this.title = title;
         this.description = description;

@@ -9,15 +9,28 @@
     <div id="new-task-div">
         <div class="new-task-header">
             <div>new task</div>
-            <button id="close-create-task">X</button>
+            <button id="close-new-task">X</button>
         </div>
         <form class="new-task-details">
             <input type="text" id="new-title" name="title" placeholder="Your Task..." required>
             <input type="text" id="new-description" name="description" placeholder="details...">
             <input type="text" id="new-due" name="due" placeholder="due date...">
+            <select id="new-project-select" name="project"></select>
             <button type="submit" id="new-submit">Add Task</button>
         </form>
     </div>
+
+    <div id="new-project-div">
+        <div class="new-project-header">
+            <div>new project</div>
+            <button id="close-new-project">X</button>
+        </div>
+        <form class="new-project-details">
+            <input type="text" id="new-project-title" name="title" placeholder="Your Project..." required>
+            <button type="submit" id="new-submit">Add Project</button>
+        </form>
+    </div>
+
     <div id="page" class="page">
         <div class="sidebar">
             <div class="logo">
@@ -26,15 +39,12 @@
                 </div>
             </div>
             <div class="add-div">
-                <button id="add-task" class="add-btn">New Task</button>
+                <button id="new-task-button" class="add-btn">New Task</button>
+                <button id="new-project-button" class="add-btn">New Project</button>
             </div>
         </div>
-        <div class="main">
-            <div id="default-project" class="project">
-                <div class="project-header">Default Project</div>
-                <div id="default-project-content" class="project-content">
-                </div>
-            </div>
+        <div id="main" class="main">
+            <!-- projects go here -->
         </div>
     </div>
 </body>
