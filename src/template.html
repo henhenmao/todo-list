@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+</head>
+<body>
+    <div id="new-task-div">
+        <div class="new-task-header">
+            <div>new task</div>
+            <button id="close-create-task">X</button>
+        </div>
+        <form class="new-task-details">
+            <input type="text" id="new-title" name="title" placeholder="Your Task..." required>
+            <input type="text" id="new-description" name="description" placeholder="details...">
+            <input type="text" id="new-due" name="due" placeholder="due date...">
+            <button type="submit" id="new-submit">Add Task</button>
+        </form>
+    </div>
+    <div id="page" class="page">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-text">
+                    Tasks
+                </div>
+            </div>
+            <div class="add-div">
+                <button id="add-task" class="add-btn">New Task</button>
+            </div>
+        </div>
+        <div class="main">
+            <div id="default-project" class="project">
+                <div class="project-header">Default Project</div>
+                <div id="default-project-content" class="project-content">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
