@@ -1,4 +1,4 @@
-html, body, div, span, applet, object, iframe,
+/* html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -17,8 +17,18 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
 
 body {
     background-color: lavender;
@@ -29,6 +39,7 @@ body {
 
 
 .page {
+    height: 100vh;
     display: grid;
     grid-template-columns: 240px 1fr;
 
@@ -38,15 +49,17 @@ body {
     background-color: white;
     display: grid;
     grid-template-rows: 1fr 1fr 3fr;
+    min-height: 0;
 }
 
 .main {
-    padding: 1rem;
+    padding: 2rem;
+    min-height: 0;
+    overflow: auto;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-    align-items: start;
+    gap: 2rem;
 }
 
 .logo {
@@ -131,6 +144,7 @@ body {
     gap: 1em;
 }
 
+
 .task-div {
     min-height: 20%;
     max-height: 20%;
@@ -167,7 +181,8 @@ body {
 
 .project {
     background-color: beige;
-    min-height: 50%;
+    height: 100%;
+    min-height: 0;
 
     display: grid;
     grid-template-rows: 1fr 3fr;
@@ -178,7 +193,7 @@ body {
 }
 
 .project-header {
-    background-color: blanchedalmond;
+    background-color: #cfe3f7;
     display: flex;
     align-items: center;
     font-size: 1.5em;
@@ -193,6 +208,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1em;
+    min-height: 0;
+    overflow: auto;
 }
 
 #new-project-div {

@@ -1,11 +1,6 @@
 
 import Project from "./Project.js";
 
-function createProject(name) {
-    const newProject = new Project(name);
-    return newProject;
-}
-
 function createProjectDiv(project) {
     const projectDiv = document.createElement("div");
     projectDiv.classList.add("project");
@@ -26,4 +21,4 @@ function addProjectToMain(projectDiv, mainDiv) {
     mainDiv.append(projectDiv);
 }
 
-export {createProject, createProjectDiv, addProjectToMain};
+export {createProjectDiv, addProjectToMain};

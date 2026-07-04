@@ -4,13 +4,7 @@ import "./styles.css";
 import Task from "./Tasks.js";
 import Project from "./Project.js";
 import {createTask, createTaskDiv} from "./createTask.js";
-import {createProject, createProjectDiv, addProjectToMain} from "./createProject.js";
-
-const exampleTask = new Task(
-    "Task Title",
-    "This is the description of the task",
-    "now"
-);
+import {createProjectDiv, addProjectToMain} from "./createProject.js";
 
 const page = document.getElementById("page");
 const main = document.getElementById("main");
@@ -21,6 +15,7 @@ const newProjectDiv = document.getElementById("new-project-div");
 const newTaskButton = document.getElementById("new-task-button");
 newTaskButton.addEventListener("click", () => {
     newTaskDiv.classList.add("visible");
+    document.getElementById("new-title").focus();
 });
 
 // action performed after the submit button of a new task is clicked
@@ -42,17 +37,12 @@ newTaskForm.addEventListener("submit", (e) => {
 const newProjectButton = document.getElementById("new-project-button");
 newProjectButton.addEventListener("click", () => {
     newProjectDiv.classList.add("visible");
+    document.getElementById("new-project-title").focus();
 });
 
-// Initializes default project and in DOM
-const defaultProject = new Project("Project 1");
-defaultProject.tasks.push(exampleTask);
 let projects = [];
-
 const newProjectSelect = document.getElementById("new-project-select");
 const projectContentDivs = new Map();
-
-addProject(defaultProject.name);
 
 function renderProjectOptions() {
     newProjectSelect.innerHTML = "";
@@ -63,27 +53,28 @@ function renderProjectOptions() {
         newProjectSelect.append(option);
     });
 }
-renderProjectOptions();
 
 const newProjectForm = document.querySelector(".new-project-details");
 newProjectForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const projectTitle = document.getElementById("new-project-title").value;
-    addProject(projectTitle);
+    
+    const project = new Project(projectTitle);
+
+    addProject(project);
     renderProjectOptions();
     closeForm(newProjectDiv, newProjectForm);
 });
 
 
-function addProject(name) {
-    const newProject = createProject(name);
-    projects.push(newProject);
+function addProject(project) {
+    projects.push(project);
 
-    const projectDiv = createProjectDiv(newProject);
+    const projectDiv = createProjectDiv(project);
     main.append(projectDiv);
 
     const contentDiv = projectDiv.querySelector(".project-content");
-    projectContentDivs.set(newProject, contentDiv);
+    projectContentDivs.set(project, contentDiv);
 }
 
 // for closing the "New Task" / "New Project" menus
@@ -110,3 +101,18 @@ function addTask(task, project) {
     const projectDiv = projectContentDivs.get(project);
     projectDiv.append(newDiv);
 }
+
+// init exmaple project and task in DOM 
+
+const exampleTask = new Task(
+    "Task Title",
+    "This is the description of the task",
+    "now"
+);
+
+const defaultProject = new Project("Project 1");
+defaultProject.tasks.push(exampleTask);
+console.log(defaultProject)
+// console.log(exampleTask)
+addProject(defaultProject);
+addTask(exampleTask, defaultProject);
