@@ -117,6 +117,8 @@ body {
     min-height: 25%;
     min-width: 50%;
     padding: 1em;
+
+    border-radius: 20px;
 }
 
 #new-task-div.visible {
@@ -132,10 +134,11 @@ body {
     grid-template-columns: 12fr 1fr;
 }
 
-#close-create-task {
+.close-new {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
 }
 
 .new-task-details {
