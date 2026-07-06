@@ -1,8 +1,9 @@
 
 import Task from "./Tasks.js";
 
-function createTask(title, description, due) {
-    const newTask = new Task(title, description, due);
+function createTask(title, description, dueDate, dueTime) {
+    const newTask = new Task(title, description, dueDate, dueTime);
+    // console.log(newTask);
     return newTask;
 };
 
@@ -37,6 +38,7 @@ function createTaskDiv(task) {
     checkDiv.append(checkTask);
     taskDetails.append(taskTitle, taskDue);
     taskDiv.append(checkDiv, taskDetails);
+
     return taskDiv
 }
 

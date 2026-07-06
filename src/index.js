@@ -26,11 +26,12 @@ newTaskForm.addEventListener("submit", (e) => {
 
     const taskTitle = document.getElementById("new-title").value;
     const taskDescription = document.getElementById("new-description").value;
-    const taskDue = document.getElementById("new-due").value;
+    const taskDate = document.getElementById("new-date").value;
+    const taskTime = document.getElementById("new-time").value;
     const selectedProject = projects[document.getElementById("new-project-select").value]
 
-    const newTask = new Task(taskTitle, taskDescription, taskDue);
-    addTask(newTask, selectedProject);
+    const newTask = new Task(taskTitle, taskDescription, taskDate, taskTime);
+    addTask(selectedProject, newTask);
     closeForm(newTaskDiv, newTaskForm);
 });
 
@@ -104,7 +105,7 @@ closeProjectFormButton.addEventListener("click", () => {
     closeForm(newProjectDiv, newProjectForm);
 });
 
-function addTask(task, project) {
+function addTask(project, task) {
     project.tasks.push(task);
     const newDiv = createTaskDiv(task);
     const projectDiv = projectContentDivs.get(project);
@@ -116,15 +117,13 @@ function addTask(task, project) {
 const exampleTask = new Task(
     "Task Title",
     "This is the description of the task",
-    "now"
+    "2026-07-06",
+    "09:21",
 );
 
 const defaultProject = new Project("Project 1");
-defaultProject.tasks.push(exampleTask);
-console.log(defaultProject)
-// console.log(exampleTask)
 addProject(defaultProject);
-addTask(exampleTask, defaultProject);
+addTask(defaultProject, exampleTask);
 
 
 

@@ -15,7 +15,10 @@
         <form class="new-task-details">
             <input type="text" id="new-title" name="title" placeholder="Your Task..." required>
             <input type="text" id="new-description" name="description" placeholder="details...">
-            <input type="text" id="new-due" name="due" placeholder="due date...">
+            <div class="date-time">
+                <input type="date" id="new-date" name="date">
+                <input type="time" id="new-time" name="time">
+            </div>
             <select id="new-project-select" name="project"></select>
             <button type="submit" id="submit-new-task" class="submit-new">add task</button>
         </form>

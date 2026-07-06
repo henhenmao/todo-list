@@ -203,6 +203,11 @@ button {
     cursor: pointer;
 }
 
+.date-time {
+    display: flex;
+    gap: 1em;
+}
+
 .submit-new {
     align-self: flex-start;
     width: auto;

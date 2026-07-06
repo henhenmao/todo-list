@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/henhenmao/todo-list/issues"
   },
-  "homepage": "https://github.com/henhenmao/todo-list#readme"
+  "homepage": "https://github.com/henhenmao/todo-list#readme",
+  "dependencies": {
+    "date-fns": "^4.4.0"
+  }
 }
