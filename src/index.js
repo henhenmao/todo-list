@@ -11,12 +11,13 @@ const main = document.getElementById("main");
 const newTaskDiv = document.getElementById("new-task-div");
 const newProjectDiv = document.getElementById("new-project-div");
 
-// "New Task" button click event
-const newTaskButton = document.getElementById("new-task-button");
-newTaskButton.addEventListener("click", () => {
-    newTaskDiv.classList.add("visible");
-    document.getElementById("new-title").focus();
-});
+// "New Task" sidebar button click event
+
+// const newTaskButton = document.getElementById("new-task-button");
+// newTaskButton.addEventListener("click", () => {
+//     newTaskDiv.classList.add("visible");
+//     document.getElementById("new-title").focus();
+// });
 
 // action performed after the submit button of a new task is clicked
 const newTaskForm = document.querySelector(".new-task-details");
@@ -62,7 +63,6 @@ newProjectForm.addEventListener("submit", (e) => {
     const project = new Project(projectTitle);
 
     addProject(project);
-    renderProjectOptions();
     closeForm(newProjectDiv, newProjectForm);
 });
 
@@ -75,6 +75,15 @@ function addProject(project) {
 
     const contentDiv = projectDiv.querySelector(".project-content");
     projectContentDivs.set(project, contentDiv);
+
+    renderProjectOptions();
+
+    const newTaskButton = projectDiv.querySelector(".new-task-button");
+    newTaskButton.addEventListener("click", () => {
+        newProjectSelect.value = projects.indexOf(project);
+        newTaskDiv.classList.add("visible");
+        document.getElementById("new-title").focus();
+    });
 }
 
 // for closing the "New Task" / "New Project" menus
@@ -116,3 +125,6 @@ console.log(defaultProject)
 // console.log(exampleTask)
 addProject(defaultProject);
 addTask(exampleTask, defaultProject);
+
+
+
