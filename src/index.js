@@ -40,6 +40,32 @@ let projects = [];
 const newProjectSelect = document.getElementById("new-project-select");
 const projectContentDivs = new Map();
 
+const STORAGE_KEY = "todoListProjects";
+
+function saveState() {
+    const data = projects.map((project) => ({
+        name: project.name,
+        tasks: project.tasks.map((task) => ({
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            dueTime: task.dueTime,
+            completed: task.completed,
+        })),
+    }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadState() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    try {
+        return JSON.parse(raw);
+    } catch {
+        return null;
+    }
+}
+
 function renderProjectOptions() {
     newProjectSelect.innerHTML = "";
     projects.forEach((project, index) => {
@@ -66,7 +92,7 @@ newProjectForm.addEventListener("submit", (e) => {
 function addProject(project) {
     projects.push(project);
 
-    const projectDiv = createProjectDiv(project);
+    const { projectDiv, sidebarDiv } = createProjectDiv(project);
     main.append(projectDiv);
 
     const contentDiv = projectDiv.querySelector(".project-content");
@@ -80,6 +106,23 @@ function addProject(project) {
         newTaskDiv.classList.add("visible");
         document.getElementById("new-title").focus();
     });
+
+    const deleteProjectButton = projectDiv.querySelector(".delete-project-button");
+    deleteProjectButton.addEventListener("click", () => {
+        if (!confirm(`Delete "${project.name}" and all of its tasks?`)) return;
+        removeProject(project, projectDiv, sidebarDiv);
+    });
+
+    saveState();
+}
+
+function removeProject(project, projectDiv, sidebarDiv) {
+    projects = projects.filter((p) => p !== project);
+    projectContentDivs.delete(project);
+    projectDiv.remove();
+    sidebarDiv.remove();
+    renderProjectOptions();
+    saveState();
 }
 
 // for closing the "New Task" / "New Project" menus
@@ -108,23 +151,46 @@ function addTask(project, task) {
 
     const deleteButton = newDiv.querySelector(".delete-task-button");
     deleteButton.addEventListener("click", () => {
+        if (!confirm(`Delete "${task.title}"?`)) return;
         project.removeTask(task);
         newDiv.remove();
+        saveState();
     });
+
+    const checkTask = newDiv.querySelector(".task-check");
+    checkTask.addEventListener("change", () => {
+        saveState();
+    });
+
+    saveState();
 }
 
-// init exmaple project and task in DOM 
+// restore projects/tasks from localStorage, or fall back to an example
 
-const exampleTask = new Task(
-    "Do your laundry",
-    "do all of your laundry this is so important do it now",
-    "2026-07-06",
-    "09:21",
-);
+const savedProjects = loadState();
 
-const defaultProject = new Project("Project 1");
-addProject(defaultProject);
-addTask(defaultProject, exampleTask);
+if (savedProjects && savedProjects.length > 0) {
+    savedProjects.forEach((projectData) => {
+        const project = new Project(projectData.name);
+        addProject(project);
+        projectData.tasks.forEach((taskData) => {
+            const task = new Task(taskData.title, taskData.description, taskData.dueDate, taskData.dueTime);
+            task.completed = taskData.completed;
+            addTask(project, task);
+        });
+    });
+} else { // auto load with default task and project if no projects anymore
+    const exampleTask = new Task(
+        "My Task",
+        "Description of my task :3",
+        "2026-07-06",
+        "09:21",
+    );
+
+    const defaultProject = new Project("Project 1");
+    addProject(defaultProject);
+    addTask(defaultProject, exampleTask);
+}
 
 
 

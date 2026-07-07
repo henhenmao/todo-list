@@ -19,6 +19,7 @@ function createTaskDiv(task) {
     const checkTask = document.createElement("input");
     checkTask.type = "checkbox";
     checkTask.classList.add("task-check");
+    checkTask.checked = task.completed;
 
     const taskButtons = document.createElement("div");
     taskButtons.classList.add("task-buttons");
@@ -29,6 +30,7 @@ function createTaskDiv(task) {
     const deleteTask = document.createElement("button");
     deleteTask.textContent = "X";
     deleteTask.classList.add("delete-task-button");
+    deleteTask.classList.add("close-button");
 
 
     // taskDetails div will contain the title, due date/time, and edit/delete buttons
@@ -59,8 +61,10 @@ function createTaskDiv(task) {
 
     taskDue.append(taskDate, taskTime);
     taskInfo.append(taskTitle, taskDescription, taskDue)
+    taskInfo.classList.toggle("completed", task.completed);
 
     checkTask.addEventListener("change", () => {
+        task.completed = checkTask.checked;
         taskInfo.classList.toggle("completed", checkTask.checked);
     });
 

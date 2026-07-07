@@ -9,9 +9,17 @@ function createProjectDiv(project) {
     const projectHeader = document.createElement('div');
     projectHeader.classList.add("project-header");
 
+    const projectHeaderTop = document.createElement("div");
+    projectHeaderTop.classList.add("project-header-top");
+
     const projectTitle = document.createElement("div");
     projectTitle.classList.add("project-title");
     projectTitle.textContent = `${project.name}`;
+
+    const deleteProjectButton = document.createElement("button");
+    deleteProjectButton.classList.add("delete-project-button");
+    deleteProjectButton.classList.add("close-button");
+    deleteProjectButton.textContent = "X";
 
     const newTaskButton = document.createElement("button");
     newTaskButton.classList.add("add-btn");
@@ -21,12 +29,13 @@ function createProjectDiv(project) {
     const projectContent = document.createElement("div");
     projectContent.classList.add('project-content');
 
-    projectHeader.append(projectTitle, newTaskButton);
+    projectHeaderTop.append(projectTitle, deleteProjectButton);
+    projectHeader.append(projectHeaderTop, newTaskButton);
     projectDiv.append(projectHeader, projectContent);
 
-    addProjectToList(project, list, projectDiv);
+    const sidebarDiv = addProjectToList(project, list, projectDiv);
     // console.log(projectDiv);
-    return projectDiv;
+    return {projectDiv, sidebarDiv};
 }
 
 function addProjectToList(project, listDiv, projectDiv) {
@@ -40,7 +49,18 @@ function addProjectToList(project, listDiv, projectDiv) {
     showProject.checked = true;
 
     showProject.addEventListener("change", () => {
-        projectDiv.classList.toggle("hidden", !showProject.checked);
+        if (showProject.checked) {
+            projectDiv.classList.remove("collapsed");
+            void projectDiv.offsetWidth; // force reflow so the fade-in transition runs
+            projectDiv.classList.remove("hidden");
+        } else {
+            projectDiv.classList.add("hidden");
+            projectDiv.addEventListener("transitionend", () => {
+                if (projectDiv.classList.contains("hidden")) {
+                    projectDiv.classList.add("collapsed");
+                }
+            }, { once: true });
+        }
     });
 
     const projectTitle = document.createElement("div");
@@ -49,6 +69,8 @@ function addProjectToList(project, listDiv, projectDiv) {
 
     sidebarProject.append(showProject, projectTitle);
     listDiv.append(sidebarProject);
+
+    return sidebarProject;
 };
 
 export {createProjectDiv};

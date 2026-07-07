@@ -47,6 +47,13 @@ button {
     cursor: pointer;
 }
 
+.close-button {
+    background-color: white;
+    color: #aaa;
+    border: 0.2rem solid #ccc;
+    border-radius: 50%;
+}
+
 
 .page {
     height: 100vh;
@@ -198,8 +205,6 @@ button {
     align-items: center;
     width: 2em;
     height: 2em;
-    border: 1px solid #ccc;
-    border-radius: 50%;
     background-color: white;
     font-weight: 600;
 
@@ -340,18 +345,21 @@ button {
     justify-content: center;
 }
 
-.delete-task-button {
+.delete-task-button,
+.delete-project-button {
     border-radius: 50%;
     width: 2em;
     height: 2em;
-    background-color: white;
-    border: 1px solid #ccc;
     font-weight: 600;
-
 }
 
 
 .project.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.project.collapsed {
     display: none;
 }
 
@@ -369,7 +377,8 @@ button {
     border-radius: 50px;
     overflow: hidden;
 
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    opacity: 1;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
 }
 
 .project-header {
@@ -384,6 +393,13 @@ button {
     border-bottom: 0.2rem solid #ccc;
     box-sizing: border-box;
     /* margin-bottom: 1em; */
+}
+
+.project-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
 }
 
 .new-task-button {
