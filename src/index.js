@@ -4,20 +4,13 @@ import "./styles.css";
 import Task from "./Tasks.js";
 import Project from "./Project.js";
 import {createTask, createTaskDiv} from "./createTask.js";
-import {createProjectDiv, addProjectToMain} from "./createProject.js";
+import {createProjectDiv} from "./createProject.js";
 
 const page = document.getElementById("page");
 const main = document.getElementById("main");
 const newTaskDiv = document.getElementById("new-task-div");
 const newProjectDiv = document.getElementById("new-project-div");
 
-// "New Task" sidebar button click event
-
-// const newTaskButton = document.getElementById("new-task-button");
-// newTaskButton.addEventListener("click", () => {
-//     newTaskDiv.classList.add("visible");
-//     document.getElementById("new-title").focus();
-// });
 
 // action performed after the submit button of a new task is clicked
 const newTaskForm = document.querySelector(".new-task-details");
@@ -39,7 +32,8 @@ newTaskForm.addEventListener("submit", (e) => {
 const newProjectButton = document.getElementById("new-project-button");
 newProjectButton.addEventListener("click", () => {
     newProjectDiv.classList.add("visible");
-    document.getElementById("new-project-title").focus();
+    const textBox = document.getElementById("new-project-title");
+    textBox.focus();
 });
 
 let projects = [];
@@ -60,10 +54,11 @@ const newProjectForm = document.querySelector(".new-project-details");
 newProjectForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const projectTitle = document.getElementById("new-project-title").value;
-    
     const project = new Project(projectTitle);
 
     addProject(project);
+
+
     closeForm(newProjectDiv, newProjectForm);
 });
 
@@ -110,13 +105,19 @@ function addTask(project, task) {
     const newDiv = createTaskDiv(task);
     const projectDiv = projectContentDivs.get(project);
     projectDiv.append(newDiv);
+
+    const deleteButton = newDiv.querySelector(".delete-task-button");
+    deleteButton.addEventListener("click", () => {
+        project.removeTask(task);
+        newDiv.remove();
+    });
 }
 
 // init exmaple project and task in DOM 
 
 const exampleTask = new Task(
-    "Task Title",
-    "This is the description of the task",
+    "Do your laundry",
+    "do all of your laundry this is so important do it now",
     "2026-07-06",
     "09:21",
 );

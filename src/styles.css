@@ -52,23 +52,60 @@ button {
     height: 100vh;
     display: grid;
     grid-template-columns: 240px 1fr;
-
-}
+} 
 
 .sidebar {
     background-color: white;
     display: grid;
-    grid-template-rows: 1fr 1fr 3fr;
+    grid-template-rows: 1fr 1fr 0.1fr 3fr;
     min-height: 0;
+
+    border-right: 0.2rem solid #ccc;
+}
+
+.sidebar-projects {
+    margin-left: 2em;
+}
+
+
+.sidebar-projects-heading {
+    display: flex;
+    padding: 0 1em;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+
+.sidebar-project {
+    display: flex;
+    gap: 0.5em;
+    padding: 1em;
+}
+
+#projects-list {
+    min-height: 0;
+    overflow: auto;
+}
+
+.show-project {
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+}
+
+.sidebar-project-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main {
     padding: 2rem;
     min-height: 0;
-    overflow: auto;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    overflow-y: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
     gap: 2rem;
 }
 
@@ -77,6 +114,7 @@ button {
     background-color: var(--blue);
     justify-content: center;
     align-items: center;
+    border-bottom: 0.2rem solid #ccc;
 
     font-size: 3em;
     font-weight: 700;
@@ -102,11 +140,13 @@ button {
     justify-content: center;
     gap: 0.5em;
 
-    border: 1px solid #333;
     border-radius: 50px;
     background-color: white;
     font-size: 1em;
     font-weight: 600;
+
+    border-radius: 20px;
+    border: 0.2rem solid #ccc;
 
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -233,20 +273,24 @@ button {
     max-height: 20%;
     display: grid;
     grid-template-columns: 1fr 12fr;
-    background-color: aliceblue;
+
+    border-bottom: 0.2rem solid #ccc;
+    box-sizing: border-box;
+    /* background-color: aliceblue; */
 }
 
 .check-div {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 1.5em;
 }
 
 
 .task-check {
     appearance: none;
-    width: 2.5em;
-    height: 2.5em;
+    width: 2em;
+    height: 2em;
     border: 2px solid #80868b;
     border-radius: 50%;
 }
@@ -257,13 +301,66 @@ button {
 }
 
 .task-details {
-    padding: 1em 0;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+    /* gap: 1em; */
+    justify-content: space-around;
+
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.task-info.completed {
+    text-decoration: line-through;
+}
+
+.task-title {
+    font-size: 20px;
+}
+
+.task-description {
+    color: #767676;
+}
+
+.task-due {
+    /* background-color: red; */
+    display: flex;
+    gap: 1em;
+}
+
+.task-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+}
+
+.delete-task-button {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    background-color: white;
+    border: 1px solid #ccc;
+    font-weight: 600;
+
+}
+
+
+.project.hidden {
+    display: none;
 }
 
 .project {
-    background-color: beige;
+    background-color: white;
     height: 100%;
     min-height: 0;
+    flex-shrink: 0;
+    width: 30rem;
 
     display: grid;
     grid-template-rows: 1fr 3fr;
@@ -271,6 +368,8 @@ button {
     border: 0.2rem solid #ccc;
     border-radius: 50px;
     overflow: hidden;
+
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .project-header {
@@ -283,24 +382,27 @@ button {
     gap: 1em;
 
     border-bottom: 0.2rem solid #ccc;
-    margin-bottom: 1em;
+    box-sizing: border-box;
+    /* margin-bottom: 1em; */
 }
 
 .new-task-button {
-    width: 10%;
+    width: 150px;
     height: 50%;
-    border-radius: 20px;
-    border: 0.2rem solid #ccc;
+    font-size: 16px;
 }
 
 .project-content {
     display: flex;
     flex-direction: column;
-    gap: 1em;
     min-height: 0;
     overflow: auto;
 }
 
+#new-project-div {
+    min-height: 0;
+    grid-template-rows: auto auto;
+}
 
 
 .new-project-header {

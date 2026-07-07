@@ -20,8 +20,23 @@ function createTaskDiv(task) {
     checkTask.type = "checkbox";
     checkTask.classList.add("task-check");
 
+    const taskButtons = document.createElement("div");
+    taskButtons.classList.add("task-buttons");
+    
+    // const editTask = document.createElement("button");
+    // editTask.textContent = "edit";
+
+    const deleteTask = document.createElement("button");
+    deleteTask.textContent = "X";
+    deleteTask.classList.add("delete-task-button");
+
+
+    // taskDetails div will contain the title, due date/time, and edit/delete buttons
     const taskDetails = document.createElement("div");
     taskDetails.classList.add("task-details")
+    
+    const taskInfo = document.createElement("div");
+    taskInfo.classList.add("task-info");
 
     const taskTitle = document.createElement("div");
     taskTitle.classList.add("task-title");
@@ -33,10 +48,27 @@ function createTaskDiv(task) {
 
     const taskDue = document.createElement("div");
     taskDue.classList.add("task-due");
-    taskDue.textContent = task.due;
 
+    const taskDate = document.createElement("div");
+    taskDate.classList.add("task-date");
+    taskDate.textContent = task.dueDate;
+
+    const taskTime = document.createElement("div");
+    taskTime.classList.add("task-time");
+    taskTime.textContent = task.dueTime;
+
+    taskDue.append(taskDate, taskTime);
+    taskInfo.append(taskTitle, taskDescription, taskDue)
+
+    checkTask.addEventListener("change", () => {
+        taskInfo.classList.toggle("completed", checkTask.checked);
+    });
+
+    // taskButtons.append(editTask, deleteTask);
+    taskButtons.append(deleteTask);
     checkDiv.append(checkTask);
-    taskDetails.append(taskTitle, taskDue);
+
+    taskDetails.append(taskInfo, taskButtons);
     taskDiv.append(checkDiv, taskDetails);
 
     return taskDiv
